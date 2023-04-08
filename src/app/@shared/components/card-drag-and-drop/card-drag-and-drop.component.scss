@@ -1,0 +1,16 @@
+.list-group {
+    .list-group-item{
+      color: rgb(128, 128, 128) !important;
+      font-size: 10px !important;
+    }
+  }
+  .card{
+    transform: scale(1,1);
+    transition: 0.5s;
+  }
+  
+  .card:hover{
+    transform: scale(1.1,1.1);
+    background-color: #ccc;
+  }
+  

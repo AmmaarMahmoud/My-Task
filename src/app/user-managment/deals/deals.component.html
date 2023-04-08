@@ -1,0 +1,83 @@
+<div class=" row d-flex align-items-center justify-content-around mb-4">
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <h2 class="text-black-50">Deals</h2>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <app-filter (newItemEvent)="selectItem($event)"></app-filter>
+    </div>
+    <div class=" col-12 col-md-6 col-lg-4 d-flex align-items-center mb-4">
+        <input
+          type="search"
+          class="form-control rounded-start"
+          placeholder="search"
+          aria-label="Search"
+          [(ngModel)]="inputValue"
+        />
+        <button class="btn btn-outline-danger rounded-end" type="button" (click)="Action()">Search</button>
+    </div>
+</div>
+<div class="row w1-100  overflow-auto">
+    <div cdkDropListGroup class="row flex-lg-nowrap d-flex justify-content-center">
+      <div class="example-container col mb-4">
+        <h6 class="text-center badge bg-danger w-100 py-2">Potential Value ({{Potential_Value?.length}})</h6>
+        <div
+          cdkDropList
+          [cdkDropListData]="Potential_Value"
+          class="example-list shadow"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of Potential_Value" cdkDrag>
+            <app-card-drag-and-drop [item]="item"></app-card-drag-and-drop>
+          </div>
+        </div>
+      </div>
+      <div class="example-container col mb-4">
+        <h6 class="text-center badge bg-danger w-100 py-2">Focus ({{Focus?.length}})</h6>
+        <div
+          cdkDropList
+          [cdkDropListData]="Focus"
+          class="example-list shadow"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of Focus" cdkDrag>
+            <app-card-drag-and-drop [item]="item"></app-card-drag-and-drop>
+          </div>
+        </div>
+      </div>
+      <div class="example-container col mb-4">
+        <h6 class="text-center badge bg-danger w-100 py-2">Contact Made ({{Contact_Made?.length}})</h6>
+        <div
+          cdkDropList
+          [cdkDropListData]="Contact_Made"
+          class="example-list shadow"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of Contact_Made" cdkDrag>
+            <app-card-drag-and-drop [item]="item"></app-card-drag-and-drop>
+          </div>
+        </div>
+      </div>
+      <div class="example-container col mb-4">
+        <h6 class="text-center badge bg-danger w-100 py-2">Offer Sent ({{Offer_Sent?.length}})</h6>
+        <div
+          cdkDropList
+          [cdkDropListData]="Offer_Sent"
+          class="example-list shadow"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of Offer_Sent" cdkDrag>
+            <app-card-drag-and-drop [item]="item"></app-card-drag-and-drop>
+          </div>
+        </div>
+      </div>
+      <div class="example-container col mb-4">
+        <h6 class="text-center badge bg-danger w-100 py-2">Getting Ready ({{Getting_Ready?.length}})</h6>
+        <div
+          cdkDropList
+          [cdkDropListData]="Getting_Ready"
+          class="example-list shadow"
+          (cdkDropListDropped)="drop($event)">
+          <div class="example-box" *ngFor="let item of Getting_Ready" cdkDrag>
+            <app-card-drag-and-drop [item]="item"></app-card-drag-and-drop>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+</div>
