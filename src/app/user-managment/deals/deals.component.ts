@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { ApiDealsService } from 'src/app/@core/services/Deals/api-deals.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Deal } from 'src/app/@models/deal';
 @Component({
   selector: 'app-deals',
   templateUrl: './deals.component.html',
@@ -9,11 +10,11 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class DealsComponent implements OnInit {
   AllDeals:any
-  Potential_Value:any
-  Focus:any
-  Contact_Made:any 
-  Offer_Sent:any
-  Getting_Ready:any
+  Potential_Value:Deal[]=[]
+  Focus:Deal[]=[]
+  Contact_Made:Deal[]=[] 
+  Offer_Sent:Deal[]=[]
+  Getting_Ready:Deal[]=[]
   SelectValue:string=''
   _inputValue:string=''
   constructor(private Deals_service : ApiDealsService,private spinner: NgxSpinnerService) { }
@@ -23,7 +24,7 @@ export class DealsComponent implements OnInit {
     this.getAllDeals()
   }
   // Functionalty used to display the data
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Deal[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     }
@@ -57,11 +58,23 @@ export class DealsComponent implements OnInit {
   }
 
   filterAll(){
-    this.Potential_Value=this.AllDeals?.deals?.filter((item:any)=>item?.status.toLocaleLowerCase().indexOf('Potential Value'.toLocaleLowerCase())!== -1)
-    this.Focus=this.AllDeals?.deals?.filter((item:any)=>item?.status.toLocaleLowerCase().indexOf('focus'.toLocaleLowerCase())!== -1)
-    this.Contact_Made=this.AllDeals?.deals?.filter((item:any)=>item?.status.toLocaleLowerCase().indexOf('Contact Made'.toLocaleLowerCase())!== -1)
-    this.Offer_Sent=this.AllDeals?.deals?.filter((item:any)=>item?.status.toLocaleLowerCase().indexOf('Offer Sent'.toLocaleLowerCase())!== -1)
-    this.Getting_Ready=this.AllDeals?.deals?.filter((item:any)=>item?.status.toLocaleLowerCase().indexOf('Getting Ready'.toLocaleLowerCase())!== -1)
+    this.AllDeals.deals.forEach((element:Deal) => {
+      if(element.status=='Potential Value'){
+        this.Potential_Value?.push(element)
+      }
+      else if(element?.status=='Focus'){
+        this.Focus?.push(element)
+      }
+      else if(element.status=='Contact Made'){
+        this.Contact_Made?.push(element)
+      }
+      else if(element.status=='Offer Sent'){
+        this.Offer_Sent?.push(element)
+      }
+      else{
+        this.Getting_Ready?.push(element)
+      }
+    });
   }
   //display filter By Frist Name
   filterByFristName(){
@@ -70,7 +83,8 @@ export class DealsComponent implements OnInit {
     this.Contact_Made=this.Contact_Made.filter((item:any)=>item?.first_name.toLocaleLowerCase().indexOf(this._inputValue.toLocaleLowerCase())!== -1)
     this.Offer_Sent=this.Offer_Sent.filter((item:any)=>item?.first_name.toLocaleLowerCase().indexOf(this._inputValue.toLocaleLowerCase())!== -1)
     this.Getting_Ready=this.Getting_Ready.filter((item:any)=>item?.first_name.toLocaleLowerCase().indexOf(this._inputValue.toLocaleLowerCase())!== -1)
-
+    
+    
   }
   //display filter By Last Name
   filterByLastName(){
@@ -117,7 +131,7 @@ export class DealsComponent implements OnInit {
   }
   // display Data
   Action(){
-    let test=this.AllDeals?.deals.find((element:any)=>{
+    let test=this.AllDeals?.deals.find((element:Deal)=>{
       return element.first_name.toLocaleLowerCase()==this._inputValue.toLocaleLowerCase()
       ||
       element.last_name.toLocaleLowerCase()==this._inputValue.toLocaleLowerCase()
@@ -138,10 +152,12 @@ export class DealsComponent implements OnInit {
       else{
         this.filterAll()
       }
-      this._inputValue=''
+      // this._inputValue=''
+      this.inputValue=''
     }
     else{
       alert("This value is not found...")
+      this.inputValue=''
     }
   }
 }

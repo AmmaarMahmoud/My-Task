@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Deal } from 'src/app/@models/deal';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiDealsService {
 
   constructor(private http : HttpClient) { }
-  getAlltDeals():Observable<any>{
-    return this.http.get<any>('https://my-json-server.typicode.com/mabukoush1/contacts/db')
+  getAlltDeals():Observable<Deal[]>{
+    return this.http.get<Deal[]>('https://my-json-server.typicode.com/mabukoush1/contacts/db')
   }
 }

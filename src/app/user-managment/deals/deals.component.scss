@@ -4,6 +4,19 @@
 .btn-outline-danger{
   border-radius: 0px;
 }
+
+@media (min-width: 992px){
+  .col-lg-2 {
+      flex: 0 0 auto;
+      width: 19.66666667%;
+  }
+}
+@media (min-width: 467px ) and (max-width: 766px){
+  .col-sm-6 {
+      flex: 0 0 auto;
+      width: 50%;
+  }
+}
 .example-container {
   // margin: 0 25px 25px 0;
   display: inline-block;
